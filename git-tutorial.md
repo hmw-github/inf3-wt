@@ -32,13 +32,14 @@
 
 ## 🧭 Was ist Git?
 
-**Git** ist ein *verteiltes Versionskontrollsystem*.  
+**Git** ist ein _verteiltes Versionskontrollsystem_.  
 Es verfolgt Änderungen im Quellcode und ermöglicht es mehreren Entwicklern, **gleichzeitig an einem Projekt** zu arbeiten, ohne sich gegenseitig in die Quere zu kommen.
 
 **Vorteile:**
-- Änderungen nachvollziehen & rückgängig machen  
-- Zusammenarbeit im Team  
-- Parallele Entwicklung über *Branches*  
+
+- Änderungen nachvollziehen & rückgängig machen
+- Zusammenarbeit im Team
+- Parallele Entwicklung über _Branches_
 - Dezentral (jeder Entwickler hat eine komplette Kopie)
 
 ---
@@ -48,11 +49,13 @@ Es verfolgt Änderungen im Quellcode und ermöglicht es mehreren Entwicklern, **
 ### 🔧 Installation
 
 **macOS:**
+
 ```bash
 brew install git
 ```
 
 **Linux (Ubuntu/Debian):**
+
 ```bash
 sudo apt update
 sudo apt install git
@@ -68,11 +71,12 @@ sudo apt install git
 Nach der Installation musst du deinen Namen und deine E-Mail-Adresse angeben:
 
 ```bash
-git config --global user.name "Paul Panther"
-git config --global user.email "paul.panther@example.com"
+git config --global user.name "Codie Coder"
+git config --global user.email "codie@coders.com"
 ```
 
 Prüfen:
+
 ```bash
 git config --list
 ```
@@ -81,14 +85,14 @@ git config --list
 
 ## 📂 Grundlegende Git-Begriffe
 
-| Begriff | Bedeutung |
-|----------|------------|
-| **Repository (Repo)** | Dein Projektordner, der Git-Informationen enthält |
-| **Commit** | Eine gespeicherte Änderung am Projekt |
-| **Branch** | Eine separate Entwicklungs-„Spur“ |
-| **Merge** | Das Zusammenführen von Branches |
-| **Remote** | Eine entfernte Version deines Repos (z. B. auf GitHub) |
-| **HEAD** | Zeiger auf den aktuellen Commit oder Branch |
+| Begriff               | Bedeutung                                              |
+| --------------------- | ------------------------------------------------------ |
+| **Repository (Repo)** | Dein Projektordner, der Git-Informationen enthält      |
+| **Commit**            | Eine gespeicherte Änderung am Projekt                  |
+| **Branch**            | Eine separate Entwicklungs-„Spur“                      |
+| **Merge**             | Das Zusammenführen von Branches                        |
+| **Remote**            | Eine entfernte Version deines Repos (z. B. auf GitHub) |
+| **HEAD**              | Zeiger auf den aktuellen Commit oder Branch            |
 
 ---
 
@@ -131,13 +135,13 @@ git status
 
 ## 🧩 Dateien verwalten (add, commit, status)
 
-| Aktion | Befehl | Beschreibung |
-|--------|---------|--------------|
-| Status prüfen | `git status` | Zeigt Änderungen im Arbeitsverzeichnis |
-| Änderungen vormerken | `git add <datei>` | Markiert Datei für den nächsten Commit |
-| Alles hinzufügen | `git add .` | Fügt alle Änderungen hinzu |
-| Commit erstellen | `git commit -m "Beschreibung"` | Speichert Änderung dauerhaft |
-| Commit-Historie ansehen | `git log` | Zeigt alle bisherigen Commits |
+| Aktion                  | Befehl                         | Beschreibung                           |
+| ----------------------- | ------------------------------ | -------------------------------------- |
+| Status prüfen           | `git status`                   | Zeigt Änderungen im Arbeitsverzeichnis |
+| Änderungen vormerken    | `git add <datei>`              | Markiert Datei für den nächsten Commit |
+| Alles hinzufügen        | `git add .`                    | Fügt alle Änderungen hinzu             |
+| Commit erstellen        | `git commit -m "Beschreibung"` | Speichert Änderung dauerhaft           |
+| Commit-Historie ansehen | `git log`                      | Zeigt alle bisherigen Commits          |
 
 ---
 
@@ -168,21 +172,25 @@ git merge feature/login
 ## 🤝 Zusammenarbeit mit Remote-Repositories (GitHub, GitLab, etc.)
 
 ### Remote hinzufügen
+
 ```bash
 git remote add origin https://github.com/benutzername/projekt.git
 ```
 
 ### Hochladen (Push)
+
 ```bash
 git push -u origin main
 ```
 
 ### Änderungen vom Server holen (Pull)
+
 ```bash
 git pull origin main
 ```
 
 ### Neue Branches hochladen
+
 ```bash
 git push origin feature/login
 ```
@@ -223,18 +231,18 @@ Wenn zwei Personen dieselbe Zeile ändern, entsteht ein Konflikt.
 
 ## 🧰 Nützliche Git-Befehle im Überblick
 
-| Zweck | Befehl |
-|--------|--------|
-| Repository klonen | `git clone <url>` |
-| Aktuellen Status anzeigen | `git status` |
-| Änderungen anzeigen | `git diff` |
-| Commit-Historie anzeigen | `git log --oneline --graph --all` |
-| Branch-Liste | `git branch` |
-| Branch löschen | `git branch -d <name>` |
-| Änderungen rückgängig machen | `git restore <datei>` |
-| Commit rückgängig machen | `git revert <commit-id>` |
-| Temporär Änderungen speichern | `git stash` |
-| Temporäre Änderungen wiederherstellen | `git stash pop` |
+| Zweck                                 | Befehl                            |
+| ------------------------------------- | --------------------------------- |
+| Repository klonen                     | `git clone <url>`                 |
+| Aktuellen Status anzeigen             | `git status`                      |
+| Änderungen anzeigen                   | `git diff`                        |
+| Commit-Historie anzeigen              | `git log --oneline --graph --all` |
+| Branch-Liste                          | `git branch`                      |
+| Branch löschen                        | `git branch -d <name>`            |
+| Änderungen rückgängig machen          | `git restore <datei>`             |
+| Commit rückgängig machen              | `git revert <commit-id>`          |
+| Temporär Änderungen speichern         | `git stash`                       |
+| Temporäre Änderungen wiederherstellen | `git stash pop`                   |
 
 ---
 
