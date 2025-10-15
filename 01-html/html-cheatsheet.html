@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTML-Cheatsheet</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <!-- Überschriften -->
+     <h1>Eine Überschrift mit h1-h6</h1>
+     <!-- Absatz -->
+     <p style="background-color: lightgoldenrodyellow">
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+     </p>
+
+     <!-- Block (=Rechteck) mit bzw. ohne Zeilenvorschub davor und dahinter
+ -->
+     <div>
+      Lorem ipsum dolor sit amet, consetetur 
+      <span style="color: #ff0000">sadipscing elitr</span>
+      , sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+     </div>
+
+     <!-- Schrift -->
+     <p>
+      sed diam <i>nonumy</i> eirmod <b>tempor</b> invidunt ut labore et <u>dolore</u> magna aliquyam<br>
+      <span style="font-family: monospace">mit fester Breite</span>
+     </p>
+     <!-- semantische Tags: geben Bedeutung -->
+    <p>
+      <em>Dies ist ein wichtiger Absatz!</em>
+    </p>
+    <!-- kleine/grosse Schrift, hoch-/tiefgestellt -->
+     <p>
+      <small>Kleine Schrift</small> und <big>grosse Schrift</big><br>
+      c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup>
+     </p>
+     <!-- Trennlinie: horizontal ruler  -->
+      <hr>
+     <!-- Quellcode -->
+     <p>
+      <pre>
+        <code>
+        for (int i = 0; i < 100; ++i) {
+          print(i);
+        }
+        </code>
+      </pre>
+     </p>
+     <hr>
+     <h2>Listen</h2>
+     <h4>Unordered List: UL</h4>
+     <ul style="list-style-type: circle">
+        <li>List item 1</li>
+        <li>List item 2</li>
+     </ul>
+     <h4>Ordered List: OL</h4>
+     <ol start="3" type="I">
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+     </ol>
+
+     <h4>Definition List: DL</h4>
+     <dl>
+        <dt>HTTP</dt>
+        <dd>Hypertext Transfer Protocol</dd>
+     </dl>
+
+     <h1>Links: (A)nchor</h1>
+     <p>
+      Link öffnet in neuem Tab <br>
+        Links mit <br>
+        ... Button<br>
+        ... Grafik<br>
+        Link mit absoluter/relativer Adressierung
+     </p>
+     <!-- Öffne thi.de in neuem Tab -->
+    <a href="http://www.thi.de" target="_blank">gehe zu THI</a> 
+    <!-- Link als Button -->
+     <button>
+        <a href="http://www.thi.de" target="_blank">gehe zur THI-Seite</a>
+     </button>
+     <!-- besser: da nicht wie Link gestyle't ! -->
+     <a href="http://www.thi.de" target="_blank">
+      <button>gehe zur THI-Seite</button>
+     </a>
+     <!-- Link mit Bild -->
+    <a href="http://www.thi.de" target="_blank">
+      <img src="./thi_logo_wb_RGB.svg" width="20%" alt="THI Logo" title="THI Logo">
+    </a>
+  </body>
+</html>
