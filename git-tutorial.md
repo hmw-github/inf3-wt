@@ -221,11 +221,22 @@ Wenn zwei Personen dieselbe Zeile ändern, entsteht ein Konflikt.
 ## 🧠 Best Practices
 
 ✅ **Commit klein und häufig**  
-✅ **Aussagekräftige Commit-Messages** (z. B. `Fix login bug on Safari`)  
+   - grosse Commits enthalten viele Änderungen und bewirken grosse Merge-Aufwände!
+ 
+✅ **Aussagekräftige Commit-Messages** 
+   -  z. B. `Fix login bug on Safari`  
+
 ✅ **Feature-Branches nutzen**  
+   - ein Feature-Branch gewährleistet lokales und unabhängiges Arbeiten
+
 ✅ **Pull regelmäßig ausführen**  
+   - nach Möglichkeit immer auf einer aktuellen Version arbeiten!
+
 ✅ **Vor dem Push testen**  
-✅ **Nie direkt in `main` entwickeln**
+   - nur lokal getesteten Code ins Repo hochschieben!
+
+✅ **Nie direkt in `main` entwickeln** 
+   - CI/CD workflows gehen davon aus, dass der main-Branch eine lauffähige Version enthält!
 
 ---
 
