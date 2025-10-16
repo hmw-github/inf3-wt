@@ -88,5 +88,72 @@
     <a href="http://www.thi.de" target="_blank">
       <img src="./thi_logo_wb_RGB.svg" width="20%" alt="THI Logo" title="THI Logo">
     </a>
+    <hr>
+    <fieldset>
+      <legend>Komplexe Tabelle</legend>
+        <table>
+          <caption>Zutatenübersicht</caption>
+          <thead>
+            <tr>
+              <th>Zutat</th>
+              <th>Menge</th>
+              <th>Kalorien</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Spaghetti</td>
+              <td>100g</td>
+              <td>350 kcal</td>
+            </tr>
+            <tr>
+              <td>Speck</td>
+              <td>50g</td>
+              <td>200kcal</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">erstellt am 16.10.2025</td>
+            </tr>
+          </tfoot>
+        </table>
+    </fieldset>
+    <hr>
+    <fieldset>
+      <legend>Formular-Elemente</legend>
+      <form action="andere-seite.html" method="post"> <!-- oder "get" -->
+        Farbe: <input type="color" style="width: 300px;"><br>
+        <!-- Mehrzeiliges Textfeld -->
+        <textarea cols="80" rows="4">Hier steht schon etwas in Zeile1</textarea>
+        <br>
+        <!-- radio -->
+        <p>
+          <input type="radio" id="w" name="gender" value="w" checked> 
+          <label for="w">weiblich</label> <br>
+          <input type="radio" id="m" name="gender" value="m">
+          <label for="m">männlich</label> <br>
+          <input type="radio" id="d" name="gender" value="d">
+          <label for="d">divers</label> <br>
+        </p>
+        <!-- Checkbox -->
+        <p>
+          <h3>Lieblingsfarben</h3>
+          <input type="checkbox" name="gruen" id="gruen" checked>
+          <label for="gruen">grün</label>
+          <input type="checkbox" name="rot" id="rot">
+          <label for="rot">rot</label>
+        </p>
+        <!-- Kombobox -->
+        <p>
+          Nationalität:
+          <select name="nationality">
+            <option value="1">Indien</option>
+            <option value="2">Deutschland</option>
+            <option selected value="3">USA</option>
+          </select>
+        </p>
+      </form>
+    </fieldset>
   </body>
 </html>
