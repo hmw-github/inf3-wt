@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Personendaten eingeben</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <form action="danke.html" method="get">
+        <fieldset>
+            <legend>Personendaten eingeben</legend>
+                <p>
+                    <label for="name">Name:</label> <input id="name" type="text" name="name" placeholder="Name und Vorname eingeben">
+                </p>
+
+                <p>
+                    Über mich
+                    <textarea name="ueber-mich"></textarea>
+                </p>
+
+                <p>
+                    Essen:
+                    <input type="checkbox" name="fastfood" id="cb-fastfood">
+                    <label for="cb-fastfood">Fastfood</label>
+                    <input type="checkbox" name="vegan">
+                    Vegan
+                </p>
+                
+                <p>
+                    <table>
+                        <tr>
+                            <td>Geschlecht:</td>
+                            <td>
+                                <input type="radio" name="geschlecht" value="w"> weiblich<br>
+                                <input type="radio" name="geschlecht" value="m"> männlich<br>
+                                <input type="radio" name="geschlecht" value="d"> divers
+                            </td>
+                        </tr>
+                    </table>
+                </p>
+
+                <p>
+                    Nationalität: 
+                    <select name="nationalitaet">
+                        <option>Deutsch</option>
+                        <option>Italienisch</option>
+                    </select>
+                </p>
+
+                <button type="submit">Senden</button>
+        </fieldset>
+    </form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Feedbackformular</h1>
+
+  <form id="feedbackForm">
+    <label for="rating">Wie zufrieden sind Sie?</label>
+    <select id="rating" name="rating" required>
+      <option value="">Bitte wählen</option>
+      <option value="5">★★★★★ - Sehr zufrieden</option>
+      <option value="4">★★★★☆ - Zufrieden</option>
+      <option value="3">★★★☆☆ - Neutral</option>
+      <option value="2">★★☆☆☆ - Unzufrieden</option>
+      <option value="1">★☆☆☆☆ - Sehr unzufrieden</option>
+    </select>
+
+    <label for="comment">Ihr Kommentar:</label>
+    <textarea id="comment" name="comment" rows="4" placeholder="Ihre Meinung..."></textarea>
+
+    <input type="submit" value="Feedback senden" class="btn-secondary">
+  </form>
+
+  <p><a href="kontakt.html">Zurück zum Kontaktformular</a></p>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Kontakt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Kontaktformular</h1>
+
+  <form id="contactForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Ihr Name" required
+      class="input-field">
+
+    <label for="email">E-Mail:</label>
+    <input type="email" id="email" name="email" placeholder="Ihre E-Mail" required class="input-field">
+
+    <label for="topic">Betreff:</label>
+    <select id="topic" name="topic" class="input-field">
+      <option value="allgemein">Allgemein</option>
+      <option value="support">Support</option>
+      <option value="feedback">Feedback</option>
+    </select>
+
+    <label for="message">Nachricht:</label>
+    <textarea id="message" name="message" rows="5" class="input-field"></textarea>
+
+    <input type="submit" value="Absenden" class="btn-primary">
+  </form>
+
+  <p>Haben Sie uns schon bewertet? <a href="feedback.html">Zum Feedbackformular</a></p>
+</body>
+</html>

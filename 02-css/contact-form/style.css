@@ -1,0 +1,36 @@
+/*
+Klassen-Selektoren
+- .input-field: einheitliches Design für Eingabefelder 
+    - hellgrauer Hintergrund, weisse Schrift, blauer Rand, 300px breit
+- .btn-primary und .btn-secondary: zwei unterschiedlich gefärbte Buttons
+
+ID-Selektoren
+- #contactForm → grüner Rand
+- #feedbackForm → oranger Rand
+
+Attribut-Selektoren
+- [required]: rote Umrandung für Pflichtfelder
+- [type="email"]: hellblauer Hintergrund
+- [placeholder]: kursiver Text
+- [href$=".html"]: Linkfarbe rot (href$=".html" definiert ein Muster für Strings, die mit ".html" enden)
+*/
+
+/* CSS reset */
+* {
+  color: black;
+}
+
+.input-field {
+  background-color: lightgray;
+  color: #ffffff;
+  border: 1px solid blue;
+  width: 300px;
+}
+
+#contactForm {
+  border: 1px solid green;
+}
+
+#feedbackForm {
+  border: 1px solid orange;
+}
