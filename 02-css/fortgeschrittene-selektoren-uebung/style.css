@@ -1,0 +1,17 @@
+/*
+ * Kind-Selektor: 
+ * Alle <p> Elemente, die irgendwo innerhalb von .container sind, 
+ * sollen grüne Schrift bekommen.
+ *
+ * Direktes Kind-Selektor: 
+ * Nur die <p> Elemente, die direkte Kinder von .container sind 
+ * (nicht die in <article>!), sollen einen blauen Hintergrund bekommen.
+ *
+ * Direkter Nachfolger-Selektor: 
+ * Das erste <p> Element, das direkt nach einem <h2> kommt, 
+ * soll rot und fett werden.
+ *
+ * Nachfolger-Selektor: 
+ * Alle <article> Elemente, die nach dem ersten <article> kommen, 
+ * sollen eine graue Umrandung bekommen.
+*/
