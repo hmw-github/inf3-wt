@@ -34,3 +34,28 @@ Attribut-Selektoren
 #feedbackForm {
   border: 1px solid orange;
 }
+
+.btn-primary {
+  background-color: pink;
+}
+
+.btn-secondary {
+  background-color: aquamarine;
+}
+
+[required] {
+  border: 1px solid red;
+}
+
+[type="email"] {
+  background-color: lightblue;
+}
+
+[placeholder] {
+  font-style: italic;
+}
+
+/* alle Elemente, die ein href-Attribut haben, welches eine Datei mit ".html"-Endung hat */
+[href$=".html"] {
+  color: red;
+}

@@ -1,0 +1,15 @@
+p {
+    color: blue;
+}
+.fett {
+    color: red;
+}
+#highlight {
+    color: green;
+}
+p.fett {
+    color: orange;
+}
+#titel.fett {
+    color: purple;
+}
