@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Management Dashboard – Bootstrap Übung</title>
+  <!-- Bootstrap 5.3 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous">
+
+  <style>
+    body {
+      background: #f8f9fa;
+    }
+
+    .sidebar-card img {
+      object-fit: contain;
+      height: 160px;
+    }
+
+    .statistics-chart {
+      width: 80%;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =========================================
+    1) CONTAINER & GRID
+    - container: äußerer Rahmen
+    - row + col-*: Bootstrap Grid für Layout
+    ========================================= -->
+  <div class="container mt-4">
+    <div class="row g-4">
+      <!-- Sidebar (col-md-3) -->
+      <div class="col-md-3">
+        <!-- Admin-Panel als Karte -->
+        <div class="card shadow-sm sidebar-card">
+          <img src="person.jpg" alt="Admin-Panel Platzhalter" />
+          <div class="card-body text-center">
+            <h5 class="card-title mb-1">Laura Musterfrau</h5>
+            <p class="text-muted mb-3">Administrator</p>
+            <!-- 4) BUTTONS: Beispiele für versch. Varianten -->
+            <div class="d-grid gap-2">
+              <button class="btn btn-primary btn-sm" type="button">Einstellungen</button>
+              <button class="btn btn-secondary btn-sm´"
+                type="button">Profil</button>
+              <button class="btn btn-danger btn-sm" type="button">Logout</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- kleine Info-Card -->
+        <div class="card mt-4">
+          <div class="card-body">
+            <h6 class="mb-2">Hinweis</h6>
+            <p class="card-text">
+              Dies ist eine Übungsseite für Bootstrap-Komponenten (Container, Grid,
+              Tabellen, Buttons, Cards, Tabs, Formulare, Modal).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content (col-md-9) -->
+      <div class="col-md-9">
+        <!-- 3) TABS: Navigation zwischen Ansichten -->
+        <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="list-tab" data-bs-toggle="tab"
+              data-bs-target="#list-pane" type="button" role="tab">Studentenliste</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="form-tab" data-bs-toggle="tab"
+              data-bs-target="#form-pane" type="button" role="tab">Neuer Student</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="stats-tab" data-bs-toggle="tab"
+              data-bs-target="#stats-pane" type="button" role="tab">Statistiken</button>
+          </li>
+        </ul>
+
+        <div class="tab-content pt-3" id="mainTabsContent">
+          <!-- TAB 1: STUDENTENLISTE -->
+          <div class="tab-pane fade show active" id="list-pane" role="tabpanel">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="mb-0">Studenten</h5>
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-outline-primary btn-sm" type="button"
+                      id="btnRefresh">Aktualisieren</button>
+                    <button class="btn btn-outline-success btn-sm" type="button"
+                      id="btnExport">Export</button>
+                  </div>
+                </div>
+                <!-- TABELLE: responsive, striped, hover -->
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover align-middle" id="studentsTable">
+                    <thead class="table-light">
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Studiengang</th>
+                        <th>E-Mail</th>
+                        <th class="text-end">Aktionen</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td data-id>1</td>
+                        <td>Anna Bauer</td>
+                        <td>Informatik</td>
+                        <td>anna@uni.de</td>
+                        <td class="text-end">
+                          <button class="btn btn-primary btn-sm btn-details"
+                            data-bs-toggle="modal" data-bs-target="#detailsModal"
+                            data-id="1" data-name="Anna Bauer" data-program="Informatik"
+                            data-email="anna@uni.de">
+                            Details
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-id>2</td>
+                        <td>Jonas Klein</td>
+                        <td>Maschinenbau</td>
+                        <td>jonas@uni.de</td>
+                        <td class="text-end">
+                          <button class="btn btn-primary btn-sm btn-details"
+                            data-bs-toggle="modal" data-bs-target="#detailsModal"
+                            data-id="2" data-name="Jonas Klein"
+                            data-program="Maschinenbau" data-email="jonas@uni.de">
+                            Details
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: NEUER STUDENT (FORMULAR) -->
+          <div class="tab-pane fade" id="form-pane" role="tabpanel">
+            <!-- 6) FORMULARE in einer Card -->
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title mb-3">Neuen Studenten anlegen</h5>
+                <form id="studentForm" novalidate>
+                  <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label for="firstName" class="form-label">Vorname</label>
+                        <input type="text" id="firstName" class="form-control" required />
+                        <div class="invalid-feedback">Bitte Vornamen angeben.</div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="lastName" class="form-label">Nachname</label>
+                        <input type="text" id="lastName" class="form-control" required />
+                        <div class="invalid-feedback">Bitte Nachnamen angeben.</div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label for="program" class="form-label">Studiengang</label>
+                        <select id="program" class="form-select" required>
+                          <option value="" selected disabled>Bitte wählen…</option>
+                          <option>Informatik</option>
+                          <option>Maschinenbau</option>
+                          <option>BWL</option>
+                        </select>
+                        <div class="invalid-feedback">Bitte Studiengang auswählen.</div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="email" class="form-label">E-Mail</label>
+                        <input type="email" id="email" class="form-control"
+                          placeholder="name@beispiel.de" required />
+                        <div class="invalid-feedback">Bitte gültige E-Mail angeben.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="m-4">
+                    <button type="submit" class="btn btn-success">Einreichen</button>
+                    <button type="reset"
+                      class="btn btn-outline-secondary">Zurücksetzen</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: STATISTIKEN (Platzhalter) -->
+          <div class="tab-pane fade" id="stats-pane" role="tabpanel">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Statistiken</h5>
+                <p>
+                  <img class="statistics-chart" src="chart.jpg">
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Detailansicht eines Studenten-Datensatzes -->
+  <div class="modal fade" id="detailsModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailsModalLabel">Studentendetails</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"</button>
+        </div>
+        <div class="modal-body">
+          <dl class="row mb-0" id="detailsList">
+            <dt class="col-sm-4">ID</dt>
+            <dd class="col-sm-8" data-field="id">—</dd>
+            <dt class="col-sm-4">Name</dt>
+            <dd class="col-sm-8" data-field="name">—</dd>
+            <dt class="col-sm-4">Studiengang</dt>
+            <dd class="col-sm-8" data-field="program">—</dd>
+            <dt class="col-sm-4">E-Mail</dt>
+            <dd class="col-sm-8" data-field="email">—</dd>
+          </dl>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+            data-bs-dismiss="modal">Schließen</button>
+          <button type="button" class="btn btn-primary">Bearbeiten</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle inkl. Popper -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+  <!-- JS-Helfer: Validierung, Zeilen hinzufügen, Modal-Daten befüllen -->
+  <script>
+    // Immediately Invoked Function Expression (IIFE)
+    (function () { 
+      const form = document.getElementById('studentForm');
+
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault(); // Formular-Submit verhindern
+          event.stopPropagation(); // event nicht nach oben in DOM-Hierarchie weiterreichen
+        } else {
+          event.preventDefault(); // Für die Übung: nicht wirklich absenden
+          addStudentFromForm();
+          // Wechsel automatisch zum Tab "Studentenliste"
+          const listTabTrigger = document.querySelector('[data-bs-target="#list-pane"]');
+          if (listTabTrigger) {
+            new bootstrap.Tab(listTabTrigger).show();
+          }
+          form.reset();
+          form.classList.remove('was-validated');
+        }
+        form.classList.add('was-validated');
+      }, false);
+    })();
+
+    // Neue Tabellenzeile aus Formularwerten hinzufügen
+    function addStudentFromForm() {
+      const first = document.getElementById('firstName').value.trim();
+      const last = document.getElementById('lastName').value.trim();
+      const program = document.getElementById('program').value;
+      const email = document.getElementById('email').value.trim();
+
+      const tbody = document.querySelector('#studentsTable tbody');
+      const newId = nextId();
+      const name = `${first} ${last}`.trim();
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td data-id>${newId}</td>
+        <td>${name}</td>
+        <td>${program}</td>
+        <td>${email}</td>
+        <td class="text-end">
+          <button class="btn btn-primary btn-sm btn-details"
+                  data-bs-toggle="modal" data-bs-target="#detailsModal"
+                  data-id="${newId}" data-name="${name}" data-program="${program}" data-email="${email}">
+            Details
+          </button>
+        </td>`;
+      tbody.appendChild(tr);
+    }
+
+    /**
+     * Bestimmt die grösste ID in der Tabelle (1. Spalte) und addiert 1 
+     * => ID für neue Zeile
+     */ 
+    function nextId() {
+      const ids = Array.from(document.querySelectorAll('#studentsTable tbody td[data-id]'))
+        .map(td => parseInt(td.textContent, 10))
+        .filter(n => !Number.isNaN(n));
+      return ids.length ? Math.max(...ids) + 1 : 1;
+    }
+
+    // Modal-Daten dynamisch befüllen
+    const detailsModal = document.getElementById('detailsModal');
+    detailsModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      if (!button) return;
+      const data = ['id', 'name', 'program', 'email'].reduce((acc, key) => {
+        acc[key] = button.getAttribute(`data-${key}`) || '—';
+        return acc;
+      }, {});
+      this.querySelector('[data-field="id"]').textContent = data.id;
+      this.querySelector('[data-field="name"]').textContent = data.name;
+      this.querySelector('[data-field="program"]').textContent = data.program;
+      this.querySelector('[data-field="email"]').textContent = data.email;
+    });
+
+    // Handler für Aktualisieren-Button: ändert die Beschriftung für 1 Sekunde
+    // auf 'Aktualisiert' und dann wieder zurück
+    document.getElementById('btnRefresh').addEventListener('click', () => {
+      const btn = document.getElementById('btnRefresh');
+      btn.disabled = true;
+      btn.textContent = 'Aktualisiert';
+      setTimeout(() => { 
+        btn.disabled = false; 
+        btn.textContent = 'Aktualisieren'; 
+      }, 1000);
+    });
+
+    // setze Handler für Export-Button 
+    document.getElementById('btnExport').addEventListener('click', () => {
+      // Für die Übung nur eine einfache Meldung
+      alert('Export gestartet (Demo)');
+    });
+  </script>
+</body>
+
+</html>
