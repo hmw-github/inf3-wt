@@ -15,3 +15,20 @@
  * Alle <article> Elemente, die nach dem ersten <article> kommen, 
  * sollen eine graue Umrandung bekommen.
 */
+
+.container p {
+  color: green;
+}
+
+.container>p {
+  background-color: blue;
+}
+
+.container h2+p {
+  color: red;
+  font-weight: bold;
+}
+
+article~article {
+  border: 1px solid gray;
+}
