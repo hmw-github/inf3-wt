@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zahlenbewerter</title>
+  </head>
+  <body>
+  </body>
+  <script>
+    /**
+      * - Schreibe ein JavaScript-Programm, das den Benutzer nach 
+      *   einer ganzen Zahl fragt und anschließend ausgibt, ob die 
+      *   Zahl positiv, negativ oder 0 ist.
+      * - Zusätzlich soll das Programm ausgeben, ob die Zahl gerade oder 
+      *   ungerade ist.
+      * - Das Programm soll bei Eingabe von "0" stoppen, andernfalls erneut fragen.
+      * - JS-Hinweise:
+      *      - Gib die Ergebnisse mit console.log() aus.
+      *      - Nutze prompt(<Aufforderungstext>) zur Abfrage der Benutzereingabe
+      */
+    for (;;) {
+      const eingabe = prompt('Zahl (Ende mit 0): ');
+
+      const zahl = Number(eingabe);
+
+      if (Number.isNaN(zahl)) {
+        alert('Bitte geben Sie eine Zahl ein!');
+        continue;
+      }
+
+      if (zahl === 0) {
+        console.log(`Die Zahl ${zahl} ist 0.`);
+      } else if (zahl < 0) {
+        console.log(`Die Zahl ${zahl} ist negativ.`);
+      } else {
+        console.log(`Die Zahl ${zahl} ist positiv.`);
+      }
+
+      console.log(`Die Zahl ${zahl} ist ${zahl %2 == 0 ? '' : 'un'}gerade`);
+
+      if (eingabe === '0') {
+        break;
+      }
+    }
+  </script>
+</html>
