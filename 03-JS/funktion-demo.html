@@ -1,0 +1,41 @@
+<html>
+  <body></body>
+  <script>
+    /**
+    - Definiere eine Funktion, die über zwei Parameter für Kontonummer 
+      und Kontostand ein Kontoobjekt erzeugt und zurückgibt.
+    - teste die Funktion
+    - Schreibe die Funktion als benannte und auch als "arrow function"
+    - ergänze einen Parameter "logFunction", die nach dem Erzeugen des 
+        Kontos in der Funktion aufgerufen wird
+     */
+    function erzeugeKonto(kontonummer, kontostand, logger) {
+      if (logger) 
+        logger(`Konto mit nur ${kontonummer} erzeugt!`);
+      return {
+        nr: kontonummer,
+        kontostand: kontostand,
+        toString: function() {
+          return `Konto: nr=${this.nr}, kontostand=${this.kontostand}`;
+        }
+      };
+    }
+
+    const erzeugeKonto2 = (kontonummer, kontostand, logger) => {
+      if (logger)
+        logger(`Konto mit nur ${kontonummer} erzeugt!`);
+      return {
+        nr: kontonummer,
+        kontostand: kontostand,
+        toString: function() {
+          return `Konto: nr=${this.nr}, kontostand=${this.kontostand}`;
+        }
+      }
+    };
+
+    const konto1 = erzeugeKonto(4711, 123.50, s => console.log(s));
+    console.log(konto1.toString());
+    const konto2 = erzeugeKonto2(4711, 123.50);
+    console.log(konto2.toString());
+  </script>
+</html>

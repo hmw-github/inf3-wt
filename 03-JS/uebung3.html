@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <body></body>
+<script>
+/**
+ * - Schreibe ein JavaScript-Programm, das folgende Personen mit Name, Alter und Wohnort
+ *   in einem Array speichert, wobei jede Person als Objekt spezifiziert wird:
+ *      - Anna, 28 Jahre, Ingolstadt
+ *      - Paul, 24 Jahre, München
+ *      - Lisa, 15 Jahre, Oberstimm
+ * - Iteriere über die Personen und gib jede Person aus, 
+ *      z.B. "Anna ist 18 Jahre alt und wohnt in Ingolstadt"
+ * - Iteriere über die Personen und lösche die minderjährigen Personen.
+ * - Sortiere das Array nun aufsteigend nach Alter (z.B. mit Arrow function) 
+ * - Gib das Array aus.
+ */
+const personen = [
+  { name: 'Anna', alter: 28, ort: 'Ingolstadt' },
+  { name: 'Paul', alter: 24, ort: 'München' }, 
+  { name: 'Lisa', alter: 15, ort: 'Oberstimm' },  
+];
+
+// Iteration über Personen (for/while mit Laufvariable und personen.length geht auch!)
+personen.forEach((person, index) => { // person ist ein Array
+  person.nr = index + 1;
+  console.log(`${person.name} ist ${person.alter} Jahre alt und wohnt in ${person.ort}`);
+});
+
+// Sortieren aufsteigend nach Alter
+personen.sort((person1, person2) => person1.alter - person2.alter);
+console.log(personen);
+for (let i = 0; i < personen.length; i++) {
+  console.log(`${personen[i].nr}: Person ${personen[i].name}`);
+}
+</script>
+</html>

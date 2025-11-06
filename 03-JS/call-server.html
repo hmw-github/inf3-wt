@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <body>
+  </body>
+  <script>
+    var collectionId = '1b2d7caa-d08c-4ee2-8b84-bc2373b69fc5';
+    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzYyMzQ4MDQwfQ.CnzUvTuxj5Yay4d32iSV3IU5Z3r3lKfef4x7ea1qGio';
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            let data = JSON.parse(xmlhttp.responseText);
+            console.log(data);
+        }
+    };
+    xmlhttp.open("GET", `https://online-lectures-cs.thi.de/chat/${collectionId}/user`, true);
+    // Add token, e. g., from Tom
+    xmlhttp.setRequestHeader('Authorization', `Bearer ${token}`);
+    xmlhttp.send();
+  </script>
+</html>

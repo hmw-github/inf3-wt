@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Promise</title>
+  </head>
+  <body>
+    <output id="output"></output>
+  </body>
+  <script>
+    const zufallszahlenGenerator = (resolve, reject) => {
+      setTimeout(() => {
+        const zahl = Math.trunc(Math.random()*1000);
+        console.log(`zahl = ${zahl}`);
+        if (zahl % 2 == 0) {
+          resolve(zahl);
+        } else {
+          reject('Error!');
+        }
+      }, 2000);
+    };
+
+    new Promise(zufallszahlenGenerator)
+    .then(value => {
+      console.log(`Zufallszahl: ${value}`);
+    })
+    .catch(err => console.error(err));
+
+  </script>
+</html>
+

@@ -1,0 +1,31 @@
+<html>
+
+<body></body>
+<script>
+  class Person { 
+    constructor(name, alter) { 
+      this._name = name; 
+      this._alter = alter; 
+    } 
+    
+    get name() { 
+      return this._name; 
+    } 
+    set name(value) {
+      this._name = value;
+    }
+    set alter(wert) { 
+      this._alter = wert; 
+    } 
+    toString() { 
+      return "name = " + this._name + ", alter = " + this._alter; 
+    } 
+  } 
+  
+  let anna = new Person('Anna', 23); 
+  const name = anna.name;
+  anna.name = 'Hugo';
+  console.log(anna.toString());
+</script>
+
+</html>
