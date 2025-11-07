@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einkaufsliste - DOM Manipulation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        input[type="number"] {
+            width: 80px;
+            padding: 12px 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #5568d3;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        #shoppingList {
+            list-style: none;
+        }
+
+        .shopping-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, background-color 0.3s;
+            border-left: 4px solid #667eea;
+        }
+
+        .shopping-item:hover {
+            transform: translateX(5px);
+            background-color: #f0f0f0;
+        }
+
+        .shopping-item.bought {
+            background-color: #e8f5e9;
+            border-left-color: #4caf50;
+            opacity: 0.7;
+        }
+
+        .item-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .item-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .shopping-item.bought .item-name {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .item-quantity {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .shopping-item.bought .item-quantity {
+            background-color: #4caf50;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-edit,
+        .btn-delete {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-edit {
+            background-color: #ffa726;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background-color: #fb8c00;
+        }
+
+        .btn-delete {
+            background-color: #ef5350;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #e53935;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            flex: 1;
+            padding: 8px 15px;
+            background-color: #f5f5f5;
+            color: #666;
+            border: 2px solid transparent;
+            font-size: 14px;
+        }
+
+        .filter-btn.active {
+            background-color: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .clear-btn {
+            width: 100%;
+            margin-top: 15px;
+            background-color: #ef5350;
+        }
+
+        .clear-btn:hover {
+            background-color: #e53935;
+        }
+
+        input[type="text"].error, input[type="number"].error {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Einkaufsliste</h1>
+        <p class="subtitle">Verwalte deine Einkäufe mit DOM-Manipulation</p>
+
+        <!-- Statistics -->
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="totalItems">0</div>
+                <div class="stat-label">Artikel gesamt</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="boughtItems">0</div>
+                <div class="stat-label">Gekauft</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="remainingItems">0</div>
+                <div class="stat-label">Verbleibend</div>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <input type="text" id="itemInput" placeholder="z.B. Milch, Brot, Äpfel...">
+            <input type="number" id="quantityInput" value="1" min="1">
+            <button id="addButton">Hinzufügen</button>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Alle</button>
+            <button class="filter-btn" data-filter="pending">Offen</button>
+            <button class="filter-btn" data-filter="bought">Gekauft</button>
+        </div>
+
+        <!-- Shopping List -->
+        <ul id="shoppingList">
+            <!-- Beispiel, später entfernen! -->
+            <li class="shopping-item" data-id="1">
+                <div class="item-content">
+                    <input type="checkbox" class="item-checkbox">
+                    <div class="item-details">
+                        <span class="item-name">Milch</span>
+                        <span class="item-quantity">2x</span>
+                    </div>
+                </div>
+                <div class="item-actions">
+                    <button class="btn-edit">Bearbeiten</button>
+                    <button class="btn-delete">Löschen</button>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Clear All Button -->
+        <button class="clear-btn" id="clearAll">Alle löschen</button>
+    </div>
+
+    <script>
+        // ========================================
+        // DOM Elemente referenzieren
+        // ========================================
+        const itemInput = document.getElementById('itemInput');
+        const quantityInput = document.getElementById('quantityInput');
+        const addButton = document.getElementById('addButton');
+        const shoppingList = document.getElementById('shoppingList');
+        const clearAllBtn = document.getElementById('clearAll');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        // Statistik Elemente
+        const totalItemsEl = document.getElementById('totalItems');
+        const boughtItemsEl = document.getElementById('boughtItems');
+        const remainingItemsEl = document.getElementById('remainingItems');
+
+        // ========================================
+        // Datenstruktur für Einkaufsliste
+        // ========================================
+        // Beispiel-Daten hinzufügen
+        let items = [
+            { id: 1, name: 'Milch', quantity: 2, bought: false },
+            { id: 2, name: 'Brot', quantity: 1, bought: false },
+            { id: 3, name: 'Äpfel', quantity: 6, bought: true }
+        ];
+        let currentFilter = 'all';
+
+        // ========================================
+        // Funktionen
+        // ========================================
+
+        /*
+         * Klick-Handler für Hinzufügen-Button
+         * 1. Eingaben lesen und prüfen (Name nicht leer, Anzahl >0)
+         *    - im Fehlerfall entsprechendes Feld mit Klasse "error" belegen und stoppen
+         * 2. Item erzeugen und in Liste anhängen
+         *    - Sonderfall: falls Name bereits vorhanden, "quantity" erhöhen!
+         * 3. Eingabefelder initialisieren, Fokus setzen auf "itemInput"
+         * 4. Liste anzeigen
+         * 5. Statistik aktualisieren
+         */ 
+        function addItem() {
+            // TODO Nr 2
+        }
+
+        /*
+         * Artikelliste anzeigen
+         * - HTML-Element für Liste leeren
+         * - gefilterte Artikel ermitteln (-> neues Array)
+         * - wenn nichts anzuzeigen: DIV erzeugen mit class "empty-state" und folgendem Inhalt:
+         *      <div class="empty-state-icon">📭</div><p>Keine Artikel vorhanden</p>
+         * - sonst: Schleife über alle gefilterten Artikel, je Artikel Folgendes erzeugen
+            <li class="shopping-item" data-id="1">
+                <div class="item-content">
+                    <input type="checkbox" class="item-checkbox">
+                    <div class="item-details">
+                        <span class="item-name">item.name</span>
+                        <span class="item-quantity">item.quantity x</span>
+                    </div>
+                </div>
+                <div class="item-actions">
+                    <button class="btn-edit">Bearbeiten</button>
+                    <button class="btn-delete">Löschen</button>
+                </div>
+            </li>
+         * - data-id enthält dabei die id des Artikels
+         * - ist der Artikel gekauft, so sollte das LI-Element die Klasse "bought" erhalten
+         */
+        function renderList() {
+            // TODO Nr. 1
+        }
+
+        /*
+         * Artikel mit der gegebenen id als gekauft markieren
+         * - Artikel anhand id suchen
+         * - als gekauft markieren
+         * - Liste anzeigen und Statistik aktualisieren
+         */
+        function toggleBought(id) {
+            // TODO Nr 5
+        }
+
+        /* 
+         * Artikel mit gegebener id bearbeiten: 
+         * - suche den Artikel in der Liste anhand der id
+         * - frage nach einem neuen Namen (mit prompt())
+         * - frage nach einer geänderten Menge (mit prompt())
+         * - zeige die Liste an
+         * 
+        function editItem(id) {
+            // TODO Nr 6
+        }
+
+        /*
+         * Lösche den Artikel mit der gegebenen ID.
+         * - hole Benutzer-Bestätigung ein (mit confirm(<Frage>))
+         * - entferne Artikel aus der Liste
+         * - zeige die Liste an
+         */
+        function deleteItem(id) {
+            // TODO Nr 3
+        }
+
+        /*
+         * Lösche alle Artikel
+         * - wenn Liste leer ist, nichts tun! 
+         * - hole Benutzer-Bestätigung ein
+         * - lösche die Liste, zeige sie an und aktualisiere die Statistik
+         */
+        function clearAll() {
+            // TODO Nr 4
+        }
+
+        // Statistik aktualisieren
+        function updateStats() {
+            const total = items.length;
+            const bought = items.filter(item => item.bought).length;
+            const remaining = total - bought;
+
+            totalItemsEl.textContent = total;
+            boughtItemsEl.textContent = bought;
+            remainingItemsEl.textContent = remaining;
+        }
+
+        // Filter wechseln
+        function setFilter(filter) {
+            currentFilter = filter;
+
+            // Button-Status aktualisieren
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-filter') === filter) {
+                    btn.classList.add('active');
+                }
+            });
+
+            renderList();
+        }
+
+        // ========================================
+        // Event Listener registrieren
+        // ========================================
+
+        // Artikel hinzufügen per Button
+        addButton.addEventListener('click', addItem);
+
+        // Artikel hinzufügen per Enter-Taste
+        itemInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addItem();
+            }
+        });
+
+        quantityInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addItem();
+            }
+        });
+
+        // Alle löschen
+        clearAllBtn.addEventListener('click', clearAll);
+
+        // Filter Buttons
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                setFilter(filter);
+            });
+        });
+
+        // ========================================
+        // Initialisierung
+        // ========================================
+        renderList();
+        updateStats();
+        itemInput.focus(); // Cursor in Item-Feld setzen
+    </script>
+</body>
+</html>
