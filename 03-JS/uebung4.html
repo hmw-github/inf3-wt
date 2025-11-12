@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body></body>
+  <script>
+    /*
+      Erstelle eine Basisklasse Konto, die folgende Eigenschaften und Methoden hat:
+      - inhaber (Name des Kontoinhabers)
+      - kontonummer
+      - saldo (aktueller Kontostand, Standardwert = 0)
+      - einzahlen(betrag) → erhöht den Kontostand (nur positive Beträge erlaubt)
+      - abheben(betrag) → verringert den Kontostand (nicht mehr als aktuelles Guthaben)
+      - toString() → gibt eine Textbeschreibung des Kontos zurück
+      
+      Implementiere eine Unterklasse Girokonto mit zusätzlicher Eigenschaft:
+      - dispo (Überziehungskreditrahmen)
+      - Überschreitet eine Abhebung den Saldo + Dispo, soll ein Fehler (Error) ausgelöst werden.
+      
+      Implementiere eine Unterklasse Sparkonto mit zusätzlicher Eigenschaft:
+      - zinssatz (z. B. 2,5%)
+      - Methode zinsenGutschreiben(), die den aktuellen Saldo mit den Zinsen erhöht.
+      
+      Teste dein Programm:
+      - Lege ein Girokonto und ein Sparkonto an.
+      - Führe Einzahlungen, Abhebungen und ggf. Zinsgutschriften durch.
+      - Gib die Ergebnisse mit console.log() aus.
+      - Behandle Fehler (z. B. ungültige Abhebung) mit try...catch.
+    */
+    class Konto {
+      constructor(kontonummer, inhaber, saldo=0) {
+        this.kontonummer = kontonummer;
+        this.inhaber = inhaber;
+        this.saldo = saldo;
+      }
+
+      einzahlen(betrag) {
+        this.saldo += betrag;
+      }
+      auszahlen(betrag) {
+        this.saldo -= betrag;
+      }
+      toString() {
+        return `Konto: nr=${this.kontonummer}, inhaber=${this.inhaber}, saldo=${this.saldo}`;
+      }
+    }
+
+    class GiroKonto extends Konto {
+      constructor(kontonummer, inhaber, dispo, saldo=0) {
+        super(kontonummer, inhaber, saldo);
+        this.dispo = dispo;
+      }
+
+      /* Beispiel: dispo = -100, saldo = 100, betrag = 250 */
+      auszahlen(betrag) {
+        if (this.saldo - betrag > this.dispo) {
+          //this.saldo -= betrag;
+          super.auszahlen(betrag);
+        } else {
+          throw new Error('Nicht ausreichender Verfügungsrahmen!');
+        }
+      }
+
+      toString() {
+        return super.toString() + ', dispo=' + this.dispo;
+      }
+    }
+
+    class SparKonto extends Konto {
+      constructor(kontonummer, inhaber, zinssatz, saldo=0) {
+        super(kontonummer, inhaber, saldo);
+        this.zinssatz = zinssatz;
+      }
+
+      zinsenGutschreiben() {
+        this.saldo += this.saldo * this.zinssatz/100;
+      }
+    }
+
+    // Main
+    try {
+      const girokonto = new GiroKonto(4711, 'Anna', -50);
+      const sparkonto = new SparKonto(4711, 'Georg', 5, 100);
+
+      console.log(JSON.stringify(sparkonto));
+
+      girokonto.einzahlen(150);
+      girokonto.auszahlen(50);
+      sparkonto.zinsenGutschreiben();
+      console.log(girokonto.toString());
+      console.log(sparkonto.toString());
+      girokonto.auszahlen(5000);
+    } catch(err) {
+      console.error(err);
+    }
+  </script>
+</html>

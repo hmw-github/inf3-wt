@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id="output">result goes here...</div>
+    <ol id="messages">
+    </ol>
+  </body>
+  <script>
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4) {
+        if(xmlhttp.status == 200) {
+          console.log(xmlhttp.responseText);
+          document.getElementById('output').innerHTML = xmlhttp.responseText;
+          const ol = document.getElementById('messages');
+          const messages = JSON.parse(xmlhttp.responseText);
+          messages.forEach(msg => {
+            const li = document.createElement('li');
+            li.innerHTML = `Msg: ${msg.from} sent "${msg.msg}" on ${new Date(msg.time)}`;
+            ol.appendChild(li);
+          });
+        } else {
+          console.error("Fehler (" + xmlhttp.status + "): " + xmlhttp.responseText);
+        }
+      }
+    };
+    xmlhttp.open("GET", "https://online-lectures-cs.thi.de/chat/test.json", true);
+    xmlhttp.send();
+  </script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body></body>
+  <script>
+    const annaAlsJSONObject = {
+      "name": "Anna",
+      "alter": 19,
+      "kontostand": -100
+    };
+    const annaAlsJSObject = {
+        name: 'Anna',
+        alter: 19,
+        kontostand: -100,
+        toString2: function() {
+            return `name=${this.name}, alter=${19}`;
+        }
+    };
+
+    console.log(annaAlsJSObject);
+    // Schreiben in LocalStorage
+    localStorage.anna = JSON.stringify(annaAlsJSObject);
+    // Lesen von LocalStorage
+    const anna = JSON.parse(localStorage.anna);
+    console.log('aus localStorage: ', anna);
+
+  </script>
+</html>

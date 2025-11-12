@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="ausgabe">hier steht nix!</div>
+  </body>
+  <script>
+    const collectionId = '2f35ce59-4b8a-4984-b6cf-dbb1907e8197';
+    const url = 'https://online-lectures-cs.thi.de/chat';
+    const tokenTom = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzYyODU1NDgwfQ.fnytMp1J1BS7SoLet9I2YJjxJhcYejII3Qy3AItLSHw';
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            let data = xmlhttp.responseText;
+            data = JSON.parse(data);
+            console.log(data);
+
+            const div = document.getElementById('ausgabe');
+            div.innerHTML = JSON.stringify(data);
+        }
+    };
+    
+    xmlhttp.open("GET", `${url}/${collectionId}/user`, true);
+    // Add token, e. g., from Tom
+    xmlhttp.setRequestHeader('Authorization', `Bearer ${tokenTom}`);
+    xmlhttp.send();
+  </script>
+</html>

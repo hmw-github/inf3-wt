@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <p class="cool">Para 1</p>
+    <p class="cool">Para 2</p>
+  </body>
+  <script>
+    // gib zu jedem Absatz den Text aus
+    const absaetze = document.getElementsByTagName('p');
+    const absaetze2 = document.querySelectorAll('p.cool');
+
+    for (let i = 0; i < absaetze2.length; ++i) {
+      const text = absaetze2[i].innerHTML;
+      absaetze2[i].innerHTML += ' ... wurde besucht!';
+      console.log(text);
+    }
+  </script>
+</html>
