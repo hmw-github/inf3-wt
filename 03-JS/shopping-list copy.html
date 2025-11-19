@@ -309,25 +309,12 @@
 
         <!-- Shopping List -->
         <ul id="shoppingList">
-            <!-- Beispiel, später entfernen! -->
-            <li class="shopping-item" data-id="1">
-                <div class="item-content">
-                    <input type="checkbox" class="item-checkbox">
-                    <div class="item-details">
-                        <span class="item-name">Milch</span>
-                        <span class="item-quantity">2x</span>
-                    </div>
-                </div>
-                <div class="item-actions">
-                    <button class="btn-edit">Bearbeiten</button>
-                    <button class="btn-delete">Löschen</button>
-                </div>
-            </li>
         </ul>
 
         <!-- Clear All Button -->
         <button class="clear-btn" id="clearAll">Alle löschen</button>
     </div>
+
     <script>
         // ========================================
         // DOM Elemente referenzieren
@@ -399,40 +386,45 @@
         function renderList() {
             // TODO Nr. 1
             shoppingList.innerHTML = '';
-            const filteredItems = items.filter(item => {
+            const filteredItems = [];
+            items.forEach(item => {
                 if (currentFilter == 'all') {
-                    return true;
+                    filteredItems.push(item);
+                    return;
                 }
-                if (currentFilter == 'pending') {
-                    return !item.bought;
+                if (currentFilter == 'pending' && !item.bought) {
+                    filteredItems.push(item);
+                    return;
                 }
-                if (currentFilter == 'bought') {
-                    return item.bought;
+                if (currentFilter == 'bought' && item.bought) {
+                    filteredItems.push(item);
+                    return;
                 }
             });
-
             if (filteredItems.length == 0) {
-                shoppingList.innerHTML = '<div class="empty-state">' +
-                    '<div class="empty-state-icon">📭</div><p>Keine Artikel vorhanden</p></div>';
-            } else {
-                filteredItems.forEach(item => {
-                    const liAsString = `<li class="shopping-item ${item.bought ? 'bought' : ''}" data-id="${item.id}">
-                            <div class="item-content">
-                                <input type="checkbox" class="item-checkbox"
-                                    onchange="toggleBought(${item.id})">
-                                <div class="item-details">
-                                    <span class="item-name">${item.name}</span>
-                                    <span class="item-quantity">${item.quantity} x</span>
-                                </div>
-                            </div>
-                            <div class="item-actions">
-                                <button class="btn-edit" onclick="editItem(${item.id})">Edit</button>
-                                <button class="btn-delete" onclick="deleteItem(${item.id})">Löschen</button>
-                            </div>
-                        </li>`;
-                    shoppingList.innerHTML += liAsString;
-                });
+                shoppingList.innerHTML = '<div class="empty-state-icon">📭</div><p>Keine Artikel vorhanden</p>';
+                return;
             }
+
+            filteredItems.forEach(item => {
+                const itemString = `
+                    <li class="shopping-item ${item.bought ? 'bought' : ''}" data-id="${item.id}">
+                        <div class="item-content">
+                            <input type="checkbox" class="item-checkbox">
+                            <div class="item-details">
+                                <span class="item-name">${item.name}</span>
+                                <span class="item-quantity">${item.quantity} x</span>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-edit" onclick="editItem(${item.id})">Bearbeiten</button>
+                            <button class="btn-delete" onclick="deleteItem(${item.id})">Löschen</button>
+                        </div>
+                    </li>`;
+                const li = document.createElement('li');
+                li.innerHTML = itemString;
+                shoppingList.appendChild(li);
+            });
         }
 
         /*
@@ -451,7 +443,7 @@
          * - frage nach einem neuen Namen (mit prompt())
          * - frage nach einer geänderten Menge (mit prompt())
          * - zeige die Liste an
-         */ 
+         * 
         function editItem(id) {
             // TODO Nr 6
         }
