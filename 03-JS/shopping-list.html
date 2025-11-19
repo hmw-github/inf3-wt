@@ -371,6 +371,45 @@
          */ 
         function addItem() {
             // TODO Nr 2
+            const name = itemInput.value;
+            const quantity = Number(quantityInput.value);
+
+            itemInput.classList.remove('error');
+            quantityInput.classList.remove('error');
+
+            if (name.trim().length == 0) {
+                itemInput.classList.add('error');
+                return;
+            }
+            if (Number.isNaN(quantity) || quantity <= 0) {
+                quantityInput.classList.add('error');
+                return;                
+            }
+
+            let nameExists = false;
+            items.forEach(item => {
+                if (item.name === name) {
+                    item.quantity += quantity;
+                    nameExists = true;
+                }
+            });
+
+            if (!nameExists) {
+                const item = { 
+                    id: Date.now(), 
+                    name: name, 
+                    quantity: quantity, 
+                    bought: false
+                };
+                items.push(item);
+            }
+
+            itemInput.value = '';
+            itemInput.focus();
+            quantityInput.value = '';
+
+            renderList();
+            updateStats();
         }
 
         /*
@@ -443,6 +482,12 @@
          */
         function toggleBought(id) {
             // TODO Nr 5
+            const item = items.find(item => item.id === id);
+            if (item) {
+                item.bought = !item.bought;
+                renderList();
+                updateStats();
+            }
         }
 
         /* 
@@ -454,6 +499,17 @@
          */ 
         function editItem(id) {
             // TODO Nr 6
+            const item = items.find(item => item.id === id);
+
+            const name = prompt('Neuer Name: ', item.name);
+            if (name && name.trim().length !== 0) {
+                item.name = name;
+            }
+            const quantity = Number(prompt('Neue Anzahl:', item.quantity));
+            if (quantity && !Number.isNaN(quantity)) {
+                item.quantity = quantity;
+            }
+            renderList();
         }
 
         /*
@@ -464,6 +520,23 @@
          */
         function deleteItem(id) {
             // TODO Nr 3
+            let index = -1;
+            for (let i = 0; i < items.length; ++i) {
+                if (items[i].id === id) {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index != -1) {
+                const ok = confirm('Wirklich löschen?');
+
+                if (ok) {
+                    items.splice(index, 1);
+                    renderList();
+                    updateStats();
+                }
+            }
         }
 
         /*
@@ -474,6 +547,15 @@
          */
         function clearAll() {
             // TODO Nr 4
+            if (items.length !== 0) {
+                const ok = confirm('Wirklich alle löschen?');
+
+                if (ok) {
+                    items = [];
+                    renderList();
+                    updateStats();
+                }
+            }
         }
 
         // Statistik aktualisieren
