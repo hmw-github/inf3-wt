@@ -140,13 +140,13 @@
     <meta charset="UTF-8">
     <title>Hotelzimmer-Anfrage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href=""styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Hotelzimmer-Anfrage</h1>
     <p class="hint">Bitte füllen Sie das Formular aus. Pflichtfelder sind gekennzeichnet.</p>
 
-    <?php if ($success): ?>
+    <?php if ($success) { ?>
         <div class="success">
             <strong>✅ Ihre Anfrage wurde erfolgreich übermittelt!</strong>
             <p>Wir melden uns zeitnah per E-Mail.</p>
@@ -169,7 +169,7 @@
                 __________________________________________________
             </form>
         </div>
-    <?php else { ?>
+    <?php } else { ?>
         <form method="post" novalidate>
             <!-- Name -->
             <div class="field">
