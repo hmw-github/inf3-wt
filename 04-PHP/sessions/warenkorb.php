@@ -13,6 +13,7 @@ $products = [
 $_SESSION['cart']  = $_SESSION['cart']  ?? [];             // ['productId' => qty]
 $_SESSION['start'] = $_SESSION['start'] ?? time();         // Warenkorb-Startzeit
 
+var_dump($_POST);
 // --- Action-Handling (POST) ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
@@ -24,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($action) {
         case 'add':
             if ($isKnownProduct) {
-                $_SESSION['cart'][$id] = ($_SESSION['cart'][$id] ?? 0) + 1;
+                $n = $_POST[$id . '_number'];
+                $_SESSION['cart'][$id] = ($_SESSION['cart'][$id] ?? 0) + $n;
             }
             break;
 
@@ -55,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'logout':
-            session_unset();
-            session_destroy();
+            session_unset(); // destroy $_SESSION
+            session_destroy(); // destroy stored session data
             // neue Session direkt starten, damit die Seite weiter funktioniert
             session_start();
             $_SESSION['cart'] = [];
@@ -90,6 +92,18 @@ $seconds = $elapsed % 60;
   <title>Mini-Warenkorb (PHP-Session)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="warenkorb-styles.css">
+  <script>
+    function dec(id) {
+      const input = document.getElementById(id);
+      const value = Number(input.value);
+      input.value = Math.max(1, value - 1); 
+    }
+    function inc(id) {
+      const input = document.getElementById(id);
+      const value = Number(input.value);
+      input.value = value + 1; 
+    }
+  </script>
 </head>
 <body>
   <div class="wrap">
@@ -103,24 +117,37 @@ $seconds = $elapsed % 60;
       <!-- Linke Spalte: Produktkatalog -->
       <section class="card">
         <h2>Produkte</h2>
-        <?php foreach ($products as $pid => $p) { ?>
+        <?php foreach ($products as $pid => $p) { 
+          $numberKey = $pid . '_number';
+        ?>
           <div class="product">
             <div>
               <div class="name"><?= $p['name'] ?></div>
               <div class="price"><?= eur($p['price']) ?></div>
             </div>
-            <form method="post" class="inline">
-              <input type="hidden" name="action" value="add">
-              <input type="hidden" name="id" value="<?= $pid ?>">
-              <button class="btn btn-accent" type="submit">In den Warenkorb</button>
-            </form>
+            <div class="qty">
+              <form method="post" class="inline">
+                <!-- Menge vermindern -->
+                <button type="button" onclick="dec('<?=$numberKey?>')">–</button>
+
+                <input type="number" readonly id="<?=$numberKey?>" name="<?=$numberKey?>" value="1">
+
+                <!-- Menge erhöhen -->
+                <button type="button" onclick="inc('<?=$numberKey?>')">+</button>
+
+                <!-- in den Warenkorb -->
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="id" value="<?= $pid ?>">
+                <button class="btn btn-accent" type="submit">In den Warenkorb</button>
+              </form>
+            </div>
           </div>
         <?php } ?>
       </section>
 
       <!-- Rechte Spalte: Warenkorb -->
       <section class="card">
-        <h2>Ihr Warenkorb</h2>
+        <h2>Ihr Warenkorb <?= ' (' . count($_SESSION['cart']) . ' Artikel)'?></h2>
 
         <?php if (empty($_SESSION['cart'])): ?>
           <p class="muted">Der Warenkorb ist leer.</p>
