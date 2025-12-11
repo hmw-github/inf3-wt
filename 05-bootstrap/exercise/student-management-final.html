@@ -35,19 +35,19 @@
     ========================================= -->
   <div class="container mt-4">
     <div class="row g-4">
-      <!-- Sidebar (col-md-3) -->
-      <div class="col-md-3">
+
+      <!-- Sidebar -->
+      <div class="col-lg-3">
         <!-- Admin-Panel als Karte -->
         <div class="card shadow-sm sidebar-card">
           <img src="person.jpg" alt="Admin-Panel Platzhalter" />
           <div class="card-body text-center">
-            <h5 class="card-title mb-1">Laura Musterfrau</h5>
+            <h5 class="card-text mb-1">Laura Musterfrau</h5>
             <p class="text-muted mb-3">Administrator</p>
-            <!-- 4) BUTTONS: Beispiele für versch. Varianten -->
+            <!-- BUTTONS: Beispiele für versch. Varianten -->
             <div class="d-grid gap-2">
               <button class="btn btn-primary btn-sm" type="button">Einstellungen</button>
-              <button class="btn btn-secondary btn-sm´"
-                type="button">Profil</button>
+              <button class="btn btn-secondary" type="button">Profil</button>
               <button class="btn btn-danger btn-sm" type="button">Logout</button>
             </div>
           </div>
@@ -65,8 +65,8 @@
         </div>
       </div>
 
-      <!-- Main Content (col-md-9) -->
-      <div class="col-md-9">
+      <!-- Main Content -->
+      <div class="col-lg-9">
         <!-- 3) TABS: Navigation zwischen Ansichten -->
         <ul class="nav nav-tabs" id="mainTabs" role="tablist">
           <li class="nav-item" role="presentation">
@@ -153,40 +153,38 @@
                 <h5 class="card-title mb-3">Neuen Studenten anlegen</h5>
                 <form id="studentForm" novalidate>
                   <div class="row mb-3">
-                      <div class="col-md-6">
+                      <div class="col-sm-6 form-group">
                         <label for="firstName" class="form-label">Vorname</label>
                         <input type="text" id="firstName" class="form-control" required />
                         <div class="invalid-feedback">Bitte Vornamen angeben.</div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-sm-6 form-group">
                         <label for="lastName" class="form-label">Nachname</label>
                         <input type="text" id="lastName" class="form-control" required />
                         <div class="invalid-feedback">Bitte Nachnamen angeben.</div>
                       </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label for="program" class="form-label">Studiengang</label>
+                      <select id="program" class="form-select" required>
+                        <option value="" selected disabled>Bitte wählen…</option>
+                        <option>Informatik</option>
+                        <option>Maschinenbau</option>
+                        <option>BWL</option>
+                      </select>
+                      <div class="invalid-feedback">Bitte Studiengang auswählen.</div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label for="program" class="form-label">Studiengang</label>
-                        <select id="program" class="form-select" required>
-                          <option value="" selected disabled>Bitte wählen…</option>
-                          <option>Informatik</option>
-                          <option>Maschinenbau</option>
-                          <option>BWL</option>
-                        </select>
-                        <div class="invalid-feedback">Bitte Studiengang auswählen.</div>
-                      </div>
-                      <div class="col-md-6">
-                        <label for="email" class="form-label">E-Mail</label>
-                        <input type="email" id="email" class="form-control"
-                          placeholder="name@beispiel.de" required />
-                        <div class="invalid-feedback">Bitte gültige E-Mail angeben.</div>
-                      </div>
+                    <div class="col-sm-6 form-group">
+                      <label for="email" class="form-label">E-Mail</label>
+                      <input type="email" id="email" class="form-control"
+                        placeholder="name@beispiel.de" required />
+                      <div class="invalid-feedback">Bitte gültige E-Mail angeben.</div>
                     </div>
                   </div>
                   <div class="m-4">
                     <button type="submit" class="btn btn-success">Einreichen</button>
-                    <button type="reset"
-                      class="btn btn-outline-secondary">Zurücksetzen</button>
+                    <button type="reset" class="btn btn-outline-secondary">Zurücksetzen</button>
                   </div>
                 </form>
               </div>
@@ -215,7 +213,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="detailsModalLabel">Studentendetails</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"</button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <dl class="row mb-0" id="detailsList">
@@ -230,8 +228,7 @@
           </dl>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary"
-            data-bs-dismiss="modal">Schließen</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
           <button type="button" class="btn btn-primary">Bearbeiten</button>
         </div>
       </div>
@@ -254,15 +251,16 @@
         if (!form.checkValidity()) {
           event.preventDefault(); // Formular-Submit verhindern
           event.stopPropagation(); // event nicht nach oben in DOM-Hierarchie weiterreichen
-          form.classList.add('was-validated'); // Validierungsfehler anzeigen
+          form.classList.add('was-validated');
         } else {
           event.preventDefault(); // Für die Übung: nicht wirklich absenden
           addStudentFromForm();
           // Wechsel automatisch zum Tab "Studentenliste"
+          /*
           const listTabTrigger = document.querySelector('[data-bs-target="#list-pane"]');
           if (listTabTrigger) {
             new bootstrap.Tab(listTabTrigger).show();
-          }
+          }*/
           form.reset();
           form.classList.remove('was-validated');
         }
@@ -271,28 +269,36 @@
 
     // Neue Tabellenzeile aus Formularwerten hinzufügen
     function addStudentFromForm() {
+      // Eingaben aus Formular lesen und dabei Leerzeichen entfernen
       const first = document.getElementById('firstName').value.trim();
       const last = document.getElementById('lastName').value.trim();
-      const program = document.getElementById('program').value;
+      const program = document.getElementById('program').value.trim();
       const email = document.getElementById('email').value.trim();
 
-      const tbody = document.querySelector('#studentsTable tbody');
+      // table body-Knoten aus DOM holen und Referenz in "tbody" speichern
+      const tbody = document.getElementById('studentsTable').children[1];
+
       const newId = nextId();
       const name = `${first} ${last}`.trim();
 
       const tr = document.createElement('tr');
+      // tr.innerHTML belegen
+      
       tr.innerHTML = `
-        <td data-id>${newId}</td>
-        <td>${name}</td>
-        <td>${program}</td>
-        <td>${email}</td>
-        <td class="text-end">
-          <button class="btn btn-primary btn-sm btn-details"
-                  data-bs-toggle="modal" data-bs-target="#detailsModal"
-                  data-id="${newId}" data-name="${name}" data-program="${program}" data-email="${email}">
-            Details
-          </button>
-        </td>`;
+      <td data-id>${newId}</td>
+      <td>${name}</td>
+      <td>${program}</td>
+      <td>${email}</td>
+      <td class="text-end">
+        <button class="btn btn-primary btn-sm btn-details"
+          data-bs-toggle="modal" data-bs-target="#detailsModal"
+          data-id="${newId}" data-name="${name}" data-program="${program}"
+          data-email="${email}">
+          Details
+        </button>
+      </td>
+      `;
+
       tbody.appendChild(tr);
     }
 
@@ -307,19 +313,34 @@
       return ids.length ? Math.max(...ids) + 1 : 1;
     }
 
-    // Modal-Daten dynamisch befüllen
     const detailsModal = document.getElementById('detailsModal');
+
+    // Handler zur dynamischen Befüllung der Modal-Daten setzen
     detailsModal.addEventListener('show.bs.modal', function (event) {
       const button = event.relatedTarget;
-      if (!button) return;
-      const data = ['id', 'name', 'program', 'email'].reduce((acc, key) => {
-        acc[key] = button.getAttribute(`data-${key}`) || '—';
-        return acc;
-      }, {});
-      this.querySelector('[data-field="id"]').textContent = data.id;
-      this.querySelector('[data-field="name"]').textContent = data.name;
-      this.querySelector('[data-field="program"]').textContent = data.program;
-      this.querySelector('[data-field="email"]').textContent = data.email;
+
+      if (!button) 
+        return;
+
+      /**
+       * Ermittle die folgenden Werte: id, name, program, email
+       * Die Daten erhälts du aus dem Button 'button' - siehe die Studententabelle.
+       * Mit der Methode getAttribute(<attrName>) kann man den Wert zu einem Attribut aus dem 
+       * Button lesen...
+       */ 
+      const id = button.getAttribute('data-id');
+      const name = button.getAttribute('data-name');
+      const program = button.getAttribute('data-program');
+      const email = button.getAttribute('data-email');
+
+      /*
+       * Setze nun die Daten aus 'data' Feld für Feld in die <dd>-Elemente des Modals.
+       * Tipp: Zum Finden der dd's wäre z.B. querySelector geeignet, wobei man nach 'data-field'=<id> suchen kann
+       */
+      document.querySelector('#detailsList > dd[data-field="id"]').innerHTML = id;
+      document.querySelector('#detailsList > dd[data-field="name"]').innerHTML = name;
+      document.querySelector('#detailsList > dd[data-field="program"]').innerHTML = program;
+      document.querySelector('#detailsList > dd[data-field="email"]').innerHTML = email;
     });
 
     // Handler für Aktualisieren-Button: ändert die Beschriftung für 1 Sekunde
@@ -328,9 +349,11 @@
       const btn = document.getElementById('btnRefresh');
       btn.disabled = true;
       btn.textContent = 'Aktualisiert';
-      setTimeout(() => { 
-        btn.disabled = false; 
-        btn.textContent = 'Aktualisieren'; 
+
+      /* Starte eine Funktion nach einer Sekunde, die den Button 'enabled' und das ursprüngliche Label herstellt */
+      setTimeout(function() {
+        btn.textContent = 'Aktualisieren';
+        btn.disabled = false;
       }, 1000);
     });
 
