@@ -1,0 +1,47 @@
+<html>
+  <body>
+    <div id="result"></div>
+  </body>
+  <script>
+    const collectionId = 'eeebe193-42b4-45ac-8b23-a5f453eee73f';
+    const tokenTom = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzY1OTY2Mjc1fQ.tBCJVzIuGpdovPDPQ1Mj1eDYwo_VNIggpvgwBRGCEjc';
+
+    (async function() {
+      fetch(`https://online-lectures-cs.thi.de/chat/${collectionId}/user`, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + tokenTom
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw 'Error calling server: ' + response.statusText;
+        }
+      })
+      .then(users => {
+        document.getElementById('result').innerHTML = users.map(user => user + '<br>');
+      })
+      .catch(err => alert(err));
+
+      // 2. Version mit fetch/await
+      try {
+        const response = await fetch(`https://online-lectures-cs.thi.de/chat/${collectionId}/user`, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + tokenTom
+          }
+        });
+        if (response.ok) {
+          let users = await response.json();
+          document.getElementById('result').innerHTML = users.map(user => user + '<br>');
+        } else {
+          throw new Error('Could not call server: ' + response.statusText);
+        }
+      } catch (err) {
+
+      }
+    })();
+  </script>
+</html>

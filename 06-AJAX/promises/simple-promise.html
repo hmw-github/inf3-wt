@@ -9,7 +9,7 @@
   <script>
     const zufallszahlenGenerator = (resolve, reject) => {
       setTimeout(() => {
-        const zahl = Math.trunc(Math.random()*1000);
+        const zahl = Math.trunc(Math.random()*10);
         console.log(`zahl = ${zahl}`);
         if (zahl % 2 == 0) {
           resolve(zahl);
@@ -22,6 +22,10 @@
     new Promise(zufallszahlenGenerator)
     .then(value => {
       console.log(`Zufallszahl: ${value}`);
+      return value;
+    })
+    .then(value =>  {
+      console.log(`Die Zahl ist ${value % 3 == 0 ? '' : 'nicht'} durch 3 teilbar.`);
     })
     .catch(err => console.error(err));
 
