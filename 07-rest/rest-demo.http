@@ -1,0 +1,21 @@
+@URL = https://online-lectures-cs.thi.de/chat/
+@COLLECTION = 506f5181-bbff-4b59-9f81-1d2a01312008
+@TOKEN_TOM = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzY3Njg4OTUzfQ.LtunkDMfNsWHott79Mv-wFAu3O5l22iyybnGB-rj7U0
+
+### get users
+GET {{URL}}{{COLLECTION}}/user
+Authorization: Bearer {{TOKEN_TOM}}
+
+### login as Tom
+POST {{URL}}{{COLLECTION}}/login
+Content-Type: application/json
+
+{
+  "username": "Tom", 
+  "password": "12345678"
+}
+@LOGIN_TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzY3NjkxMDkwfQ.kVkh5JUcNlAYlpD530rDxEBucsu01TNasLJp0N9Vw5E
+
+### get friends
+GET {{URL}}{{COLLECTION}}/friend
+Authorization: Bearer {{LOGIN_TOKEN}}
