@@ -14,6 +14,8 @@ Content-Type: application/json
   "username": "Tom", 
   "password": "12345678"
 }
+
+### store token
 @LOGIN_TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzY3NjkxMDkwfQ.kVkh5JUcNlAYlpD530rDxEBucsu01TNasLJp0N9Vw5E
 
 ### get friends
