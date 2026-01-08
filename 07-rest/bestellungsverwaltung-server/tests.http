@@ -1,0 +1,28 @@
+@url = http://localhost:8080/bestellungsverwaltung-server/
+
+### alle Bestellungen lesen
+GET {{url}}bestellungen
+
+### Erzeuge neue Bestellung
+POST {{url}}bestellung
+Content-Type: application/json
+
+{
+  "kunde": "Paula",
+  "datum": "2025-12-25T23:00:00.000Z",
+  "anzahlPositionen": "0",
+  "positionen": []
+}
+
+### Erzeuge neue Position zu Bestellung 
+POST {{url}}bestellung/1/position
+Content-Type: application/json
+
+{
+  "nr": 2,
+  "artikel": "Batterie",
+  "menge": 22
+}
+
+### lade Positionen zu Bestellung
+GET {{url}}bestellung/2/positionen

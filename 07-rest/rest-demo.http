@@ -12,11 +12,11 @@ Content-Type: application/json
 
 {
   "username": "Tom", 
-  "password": "12345678"
+  "password": "1234567"
 }
 
 ### store token
-@LOGIN_TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzY3NjkxMDkwfQ.kVkh5JUcNlAYlpD530rDxEBucsu01TNasLJp0N9Vw5E
+@LOGIN_TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzY3Nzc3NTUzfQ.5bPiGg4OMT3QBRRzYE8MdR81fXsQK7E_-D97O3Um3S8
 
 ### get friends
 GET {{URL}}{{COLLECTION}}/friend

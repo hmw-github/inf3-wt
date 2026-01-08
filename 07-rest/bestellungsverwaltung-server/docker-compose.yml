@@ -1,0 +1,9 @@
+version: '3'
+services:
+  nginx:
+    image:  richarvey/nginx-php-fpm:1.10.3
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html/
+      - ./default.conf:/etc/nginx/sites-enabled/default.conf

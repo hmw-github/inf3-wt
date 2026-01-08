@@ -1,0 +1,19 @@
+.bestellungen-container {
+    border: 0.5px solid grey;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+.positionen-container {
+    border: 0.5px solid grey;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+.invisible {
+    display: none;
+}
+
+.selektiert {
+    background-color: rgb(86, 93, 184);
+}
