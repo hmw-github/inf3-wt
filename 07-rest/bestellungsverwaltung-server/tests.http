@@ -26,3 +26,8 @@ Content-Type: application/json
 
 ### lade Positionen zu Bestellung
 GET {{url}}bestellung/2/positionen
+
+### suche Bestellungen die "Paula" entalten
+### sucheBestellung(searchTerm: string): Bestellung[]
+GET {{url}}bestellungen/suche/Paula
+

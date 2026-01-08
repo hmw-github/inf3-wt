@@ -114,6 +114,14 @@ function deletePosition($bestellungId, $matrikelnummer) {
     }    
 }
 
+function sucheBestellungen($searchTerm) {
+    global $dao;
+
+    $bestellungen = $dao->sucheBestellungen($searchTerm);
+    echo json_encode($bestellungen);
+    http_response_code(200); // kein Fehler
+}
+
 /*
  * Hilfsfunktionen
  */
@@ -148,8 +156,11 @@ try {
         http_response_code(200);
         header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS");
         header("Access-Control-Allow-Headers: Pragma, Cache-Control");
-    } else if (preg_match("/\/bestellungen\/suche\/(.*)/", $url)) {
+    } else if ($requestType === 'GET' && preg_match("/\/bestellungen\/suche\/(\S+)/", $url)) {
         // TODO: supply missing code to call sucheBestellungen($search); implement sucheBestellungen($search)
+        $parts = explode('/', $url);
+        $searchTerm = $parts[3];
+        sucheBestellungen($searchTerm);
     } else if ($url === '/bestellungen') {
         if ($requestType === 'GET') {
             getBestellungen();
@@ -167,20 +178,16 @@ try {
             $bestellungId = $parts[2];
             getPositionenZuBestellung($bestellungId);
         }
-    } else if (preg_match("/\/bestellung\/[0-9]*\/position\/[0-9]*/", $url)) {
+    } else if (preg_match("/\/bestellung\/[0-9]+\/position\/[0-9]+/", $url)) {
         $parts = explode('/', $url);
-        if (count($parts) !== 5) {
-            throw new Exception('bad request');
+        $bestellungId = $parts[2];
+        $nr = $parts[4];
+        if ($requestType === 'PUT') {
+            putPosition($bestellungId, $nr, $body);
+        } else if ($requestType === 'DELETE') {
+            deletePosition($bestellungId, $nr);
         } else {
-            $bestellungId = $parts[2];
-            $nr = $parts[4];
-            if ($requestType === 'PUT') {
-                putPosition($bestellungId, $nr, $body);
-            } else if ($requestType === 'DELETE') {
-                deletePosition($bestellungId, $nr);
-            } else {
-                throw new Exception('bad request');
-            }
+            throw new Exception('bad request');
         }
     } else if (preg_match("/\/bestellung\/[0-9]*\/position/", $url) &&
         $requestType === 'POST') {
